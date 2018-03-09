@@ -1,8 +1,7 @@
 package common
 
 import common.Matrices.{FlowMatrix, RangeMatrix}
-
-import scala.util.Random
+import random.CustomRandom
 
 class Permutation(flowMatrix: FlowMatrix, rangeMatrix: RangeMatrix, private val locations: Seq[Int]) {
   require(flowMatrix.size == rangeMatrix.size)
@@ -51,7 +50,7 @@ class Permutation(flowMatrix: FlowMatrix, rangeMatrix: RangeMatrix, private val 
     create(repair(locations.take(num) ++ other.locations.drop(num)))
   }
 
-  def randomCrossOver(other: Permutation): Permutation = crossOver(other, Random.nextInt(locations.length))
+  def randomCrossOver(other: Permutation): Permutation = crossOver(other, CustomRandom.nextInt(locations.length))
 
   def isBetterThen(other: Permutation): Boolean = fitnessValue < other.fitnessValue
 

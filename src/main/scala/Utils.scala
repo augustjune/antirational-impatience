@@ -11,7 +11,8 @@ object Utils {
 
     val initialPop = new Population(random.candidates.take(1000).toList)
     printCandidate(initialPop.best)
-    val newPop = initialPop.selectByTournament(4, 0.8)(0.5).randCrossover(0, 0.5, 4)
+    val newPop = initialPop.selectByTournament(4, 0.8)(0.25).randCrossover(0.5, 4)
+    println(newPop.size)
     printCandidate(newPop.best)
   }
 
