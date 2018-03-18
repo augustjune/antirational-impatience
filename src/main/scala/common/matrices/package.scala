@@ -1,6 +1,7 @@
 package common
 
-object Matrices {
+package object matrices {
+
   class Matrix[V](values: Vector[Vector[V]]) extends ((Int, Int) => V) {
     def apply(row: Int, column: Int): V = values(row)(column)
 

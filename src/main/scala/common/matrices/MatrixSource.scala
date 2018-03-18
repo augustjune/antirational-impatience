@@ -1,6 +1,4 @@
-package common
-
-import common.Matrices._
+package common.matrices
 
 import scala.io.Source.{fromFile, fromURL}
 

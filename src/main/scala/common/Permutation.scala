@@ -1,9 +1,9 @@
 package common
 
-import common.Matrices.{FlowMatrix, RangeMatrix}
+import common.matrices._
 import random.CustomRandom
 
-class Permutation(flowMatrix: FlowMatrix, rangeMatrix: RangeMatrix, private val locations: Seq[Int]) {
+class Permutation(flowMatrix: FlowMatrix, rangeMatrix: RangeMatrix, private val locations: Seq[Int]) extends Ordered[Permutation] {
   require(flowMatrix.size == rangeMatrix.size)
   require(flowMatrix.size == locations.size)
 
@@ -28,11 +28,13 @@ class Permutation(flowMatrix: FlowMatrix, rangeMatrix: RangeMatrix, private val 
         j <- i + 1 until locations.length
       } yield switchPair(i, j)
 
-    pairSwitchedPerm.find(_.isBetterThen(this)) match {
+    pairSwitchedPerm.find(_ < this) match {
       case Some(betterPerm) => betterPerm
       case None => this
     }
   }
+
+  def randomCrossOver(other: Permutation): Permutation = crossOver(other, CustomRandom.nextInt(locations.length))
 
   def crossOver(other: Permutation, num: Int): Permutation = {
     def repair(locations: Seq[Int]): Seq[Int] = {
@@ -50,11 +52,11 @@ class Permutation(flowMatrix: FlowMatrix, rangeMatrix: RangeMatrix, private val 
     create(repair(locations.take(num) ++ other.locations.drop(num)))
   }
 
-  def randomCrossOver(other: Permutation): Permutation = crossOver(other, CustomRandom.nextInt(locations.length))
-
-  def isBetterThen(other: Permutation): Boolean = fitnessValue < other.fitnessValue
+  def mutate: Permutation = switchPair(CustomRandom.nextInt(locations.length), CustomRandom.nextInt(locations.length))
 
   private def create(locations: Seq[Int]) = new Permutation(flowMatrix, rangeMatrix, locations)
+
+  def compare(that: Permutation): Int = fitnessValue - that.fitnessValue
 
   override def toString: String = locations mkString("[", ", ", "]")
 }
