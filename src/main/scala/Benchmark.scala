@@ -1,7 +1,6 @@
 import common.Permutations
 import common.matrices.MatrixSource
-import engines.LoggedGeneticEngine
-import logging.Log
+import engines.GeneticEngine
 import operations.Population
 
 import scala.concurrent.duration.Duration
@@ -11,20 +10,18 @@ trait Benchmark {
 
   def popSizes: List[Int]
 
-  def engines: List[LoggedGeneticEngine]
+  def engines: List[GeneticEngine]
 
   def timeParameters: List[Duration]
 
   def iterationParameters: List[Int]
 
-  def start: List[Log] = {
+  def start(): Unit = {
     for {
       engine <- engines
       initPop <- initialPopulations
       time <- timeParameters
-    } yield {
-      engine.iterate(initPop, time); engine.log
-    }
+    } yield engine.iterate(initPop, time)
   }
 
   private val initialPopulations: List[Population] = for {
