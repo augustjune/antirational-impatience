@@ -29,8 +29,12 @@ object Utils {
       def iterationParameters: List[Int] = Nil
     }
 
+    val duration = bench.run()
+    if (duration.toSeconds > 200)
+      println(s"Time took: ${duration.toMinutes} min")
+    else
+      println(s"Time took: ${duration.toSeconds} sec")
 
-    bench.start()
     testEngines.map(_.log).foreach(_ print())
   }
 

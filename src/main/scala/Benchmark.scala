@@ -16,12 +16,14 @@ trait Benchmark {
 
   def iterationParameters: List[Int]
 
-  def start(): Unit = {
+  def run(): Duration = {
+    val start = System.nanoTime()
     for {
       engine <- engines
       initPop <- initialPopulations
       time <- timeParameters
     } yield engine.iterate(initPop, time)
+    Duration(System.nanoTime() - start, java.util.concurrent.TimeUnit.NANOSECONDS)
   }
 
   private val initialPopulations: List[Population] = for {
