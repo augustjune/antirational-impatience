@@ -1,10 +1,10 @@
-package engines
+package genetic.engines
 
-import logging.Log
-import operations.Mixing.Mixing
-import operations.Mutation.Mutation
-import operations.{Population, Same}
-import operations.Selection.Selection
+import genetic.logging.Log
+import genetic.operations.Mixing.Mixing
+import genetic.operations.Mutation.Mutation
+import genetic.operations.{Population, Same}
+import genetic.operations.Selection.Selection
 
 import scala.concurrent.duration.Duration
 

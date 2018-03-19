@@ -1,7 +1,7 @@
-package operations
+package genetic.operations
 
-import common.Permutation
-import random.CustomRandom
+import genetic.common.Permutation
+import genetic.random.CustomRandom
 
 object Mixing {
 

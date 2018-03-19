@@ -1,7 +1,7 @@
-package common
+package genetic.common
 
-import common.matrices._
-import random.CustomRandom
+import genetic.common.matrices._
+import genetic.random.CustomRandom
 
 class Permutation(flowMatrix: FlowMatrix, rangeMatrix: RangeMatrix, private val locations: Seq[Int]) extends Ordered[Permutation] {
   require(flowMatrix.size == rangeMatrix.size)

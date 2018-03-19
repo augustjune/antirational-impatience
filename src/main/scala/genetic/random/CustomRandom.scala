@@ -1,4 +1,4 @@
-package random
+package genetic.random
 
 import scala.collection.generic.CanBuildFrom
 import scala.util.Random

@@ -1,7 +1,7 @@
-package common
+package genetic.common
 
-import common.matrices._
-import random.CustomRandom
+import genetic.common.matrices._
+import genetic.random.CustomRandom
 
 
 class Permutations(flowMatrix: FlowMatrix, rangeMatrix: RangeMatrix) {

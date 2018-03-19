@@ -1,11 +1,13 @@
-import common.Permutation
-import engines.{GeneticEngine, LoggedGeneticEngine}
-import logging.Notepad
-import operations.Mixing.ClassicCrossover
-import operations.Mutation.{ComplexMutation, SingleChromosomeMutation}
-import operations.Selection.{Roulette, SimpleTournament}
+package genetic
 
-import scala.concurrent.duration.{Duration, _}
+import genetic.common.Permutation
+import genetic.engines.{GeneticEngine, LoggedGeneticEngine}
+import genetic.logging.Notepad
+import genetic.operations.Mixing.ClassicCrossover
+import genetic.operations.Mutation.{ComplexMutation, SingleChromosomeMutation}
+import genetic.operations.Selection.{Roulette, SimpleTournament}
+
+import scala.concurrent.duration._
 
 object Utils {
   def main(args: Array[String]): Unit = {

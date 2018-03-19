@@ -1,4 +1,4 @@
-package common
+package genetic.common
 
 package object matrices {
 

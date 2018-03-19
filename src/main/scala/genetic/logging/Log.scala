@@ -1,4 +1,4 @@
-package logging
+package genetic.logging
 
 trait Log {
   def addLine(line: String)

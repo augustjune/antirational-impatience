@@ -1,7 +1,9 @@
-import common.Permutations
-import common.matrices.MatrixSource
-import engines.GeneticEngine
-import operations.Population
+package genetic
+
+import genetic.common.Permutations
+import genetic.common.matrices.MatrixSource
+import genetic.engines.GeneticEngine
+import genetic.operations.Population
 
 import scala.concurrent.duration.Duration
 

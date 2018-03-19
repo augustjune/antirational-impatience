@@ -1,4 +1,4 @@
-package logging
+package genetic.logging
 
 import java.io.{File, PrintWriter}
 

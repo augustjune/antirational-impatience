@@ -1,6 +1,6 @@
-package stat
+package genetic.stat
 
-import common.Permutation
+import genetic.common.Permutation
 
 import scala.collection.mutable
 

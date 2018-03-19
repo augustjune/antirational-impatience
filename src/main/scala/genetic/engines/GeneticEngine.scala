@@ -1,9 +1,9 @@
-package engines
+package genetic.engines
 
-import operations.Mixing._
-import operations.Mutation._
-import operations.{Population, Same}
-import operations.Selection._
+import genetic.operations.Mixing._
+import genetic.operations.Mutation._
+import genetic.operations.{Population, Same}
+import genetic.operations.Selection._
 
 import scala.concurrent.duration.Duration
 

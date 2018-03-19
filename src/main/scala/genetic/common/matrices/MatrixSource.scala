@@ -1,4 +1,4 @@
-package common.matrices
+package genetic.common.matrices
 
 import scala.io.Source.{fromFile, fromURL}
 
