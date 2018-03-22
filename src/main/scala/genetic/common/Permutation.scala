@@ -5,7 +5,9 @@ import genetic.random.CustomRandom
 
 class Permutation(flowMatrix: FlowMatrix, rangeMatrix: RangeMatrix, private val locations: Seq[Int]) extends Ordered[Permutation] {
   require(flowMatrix.size == rangeMatrix.size)
-  require(flowMatrix.size == locations.size)
+  require(flowMatrix.size == locations.length)
+
+  val size: Int = locations.length
 
   lazy val fitnessValue: Int = {
     val locationMap: Map[Int, Int] = locations.zipWithIndex.toMap
@@ -25,7 +27,7 @@ class Permutation(flowMatrix: FlowMatrix, rangeMatrix: RangeMatrix, private val 
     def pairSwitchedPerm: Stream[Permutation] =
       for {
         i <- locations.indices.toStream
-        j <- i + 1 until locations.length
+        j <- i + 1 until size
       } yield switchPair(i, j)
 
     pairSwitchedPerm.find(_ < this) match {
@@ -34,7 +36,7 @@ class Permutation(flowMatrix: FlowMatrix, rangeMatrix: RangeMatrix, private val 
     }
   }
 
-  def randomCrossOver(other: Permutation): Permutation = crossOver(other, CustomRandom.nextInt(locations.length))
+  def randomCrossOver(other: Permutation): Permutation = crossOver(other, CustomRandom.nextInt(size))
 
   def crossOver(other: Permutation, num: Int): Permutation = {
     def repair(locations: Seq[Int]): Seq[Int] = {
@@ -45,14 +47,14 @@ class Permutation(flowMatrix: FlowMatrix, rangeMatrix: RangeMatrix, private val 
         case Nil => Nil
       }
 
-      val missing = 1 to locations.length filterNot locations.contains
+      val missing = 1 to size filterNot locations.contains
       replaceDuplicates(missing.toList, locations.toList)
     }
 
     create(repair(locations.take(num) ++ other.locations.drop(num)))
   }
 
-  def mutate: Permutation = switchPair(CustomRandom.nextInt(locations.length), CustomRandom.nextInt(locations.length))
+  def mutate: Permutation = switchPair(CustomRandom.nextInt(size), CustomRandom.nextInt(size))
 
   private def create(locations: Seq[Int]) = new Permutation(flowMatrix, rangeMatrix, locations)
 

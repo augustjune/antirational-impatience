@@ -10,31 +10,17 @@ object Notepad {
 }
 
 class Notepad(file: File) extends Log {
-  private final val POINT_COUNTER_START = 1
   private var lines: mutable.MutableList[String] = mutable.MutableList.empty
-  private var pointCounter = POINT_COUNTER_START
 
-  private def erasePointCounter(): Unit = pointCounter = POINT_COUNTER_START
+  def addHeader(line: String): Unit = lines += formatHeader(line)
 
-  def addHeader(line: String): Unit = {
-    lines += header(line)
-    erasePointCounter()
-  }
+  def addValues(values: Any*): Unit = lines += (values mkString ",")
 
-  protected def header(line: String): String = s"\t\t*** | $line | ***".toUpperCase
+  def addComment(line: String): Unit = lines += formatComment(line)
 
-  def addLine(line: String): Unit = {
-    lines += line
-    erasePointCounter()
-  }
+  protected def formatHeader(line: String): String = s"\n\t\t*** | $line | ***".toUpperCase
 
-  def addPoint(line: String): Unit = lines += point(line)
-
-  protected def point(line: String): String = {
-    val s = s"$pointCounter. $line"
-    pointCounter = pointCounter + 1
-    s
-  }
+  protected def formatComment(line: String): String = "//" + line
 
   def print(): Unit = {
     val writer = new PrintWriter(file)

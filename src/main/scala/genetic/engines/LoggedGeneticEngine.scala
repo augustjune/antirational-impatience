@@ -3,8 +3,8 @@ package genetic.engines
 import genetic.logging.Log
 import genetic.operations.Mixing.Mixing
 import genetic.operations.Mutation.Mutation
-import genetic.operations.{Population, Same}
 import genetic.operations.Selection.Selection
+import genetic.operations.{Population, Same}
 
 import scala.concurrent.duration.Duration
 
@@ -16,22 +16,23 @@ object LoggedGeneticEngine {
 class LoggedGeneticEngine(selection: Selection, mixing: Mixing, mutation: Mutation, val log: Log)
   extends GeneticEngine(selection, mixing, mutation) {
 
-  log.addHeader(s"Starting logging for parameters: $selection, $mixing, $mutation")
+  log.addHeader(s"Parameters -  Selection: $selection, Mixing: $mixing, Mutation: $mutation")
+  log.addComment(s"Format: PopSize,BestFitnessVal,DuplicatesInPop")
 
   override def iterate(initial: Population, duration: Duration): Population = {
-    log.addLine(s"Starting iterating initial population of size ${initial.length} for $duration")
+    log.addComment(s"Starting iterating for $duration with init_pop of ${initial.size} and matrix of ${initial.head.size}")
     super.iterate(initial, duration)
   }
 
   override def iterate(initial: Population, times: Int): Population = {
-    log.addLine(s"\nStarting iterating initial population of size ${initial.length} for $times times")
+    log.addComment(s"Starting iterating for $times times with init_pop of ${initial.size}")
     super.iterate(initial, times)
   }
 
   override protected def cycle(population: Population): Population = {
     val nextPop = super.cycle(population)
-    val best = nextPop.min
-    log.addPoint(s"Best permutation of current pop: Q($best) = ${best.fitnessValue} | Current pop size: ${nextPop.length} | Duplicating permutations count ${nextPop.length - nextPop.distinct.length}")
+    val nextPopSize = nextPop.length
+    log.addValues(nextPopSize, nextPop.min.fitnessValue, nextPopSize - nextPop.distinct.length)
     nextPop
   }
 }

@@ -1,9 +1,9 @@
 package genetic.logging
 
 trait Log {
-  def addLine(line: String)
-  def addPoint(line: String)
   def addHeader(line: String)
+  def addComment(line: String)
+  def addValues(values: Any*)
 
   def print()
 }
