@@ -21,11 +21,11 @@ object Utils {
 
     val bench = new IterativeBenchmark {
       def sources: List[String] = List(
-        "P:\\Projects\\Studia\\VI_Semestr\\Sztuczna Inteligencja i inzyneria wiedzy\\Lab\\src\\test\\resources\\test_matrix_12.txt",
-        "P:\\Projects\\Studia\\VI_Semestr\\Sztuczna Inteligencja i inzyneria wiedzy\\Lab\\src\\test\\resources\\test_matrix_14.txt",
-        "P:\\Projects\\Studia\\VI_Semestr\\Sztuczna Inteligencja i inzyneria wiedzy\\Lab\\src\\test\\resources\\test_matrix_16.txt",
-        "P:\\Projects\\Studia\\VI_Semestr\\Sztuczna Inteligencja i inzyneria wiedzy\\Lab\\src\\test\\resources\\test_matrix_18.txt",
-        "P:\\Projects\\Studia\\VI_Semestr\\Sztuczna Inteligencja i inzyneria wiedzy\\Lab\\src\\test\\resources\\test_matrix_20.txt",
+        getClass.getResource("/matrices/test_matrix_12.txt").getPath,
+        getClass.getResource("/matrices/test_matrix_14.txt").getPath,
+        getClass.getResource("/matrices/test_matrix_16.txt").getPath,
+        getClass.getResource("/matrices/test_matrix_18.txt").getPath,
+        getClass.getResource("/matrices/test_matrix_20.txt").getPath,
       )
      
       def popSizes: List[Int] = List(250, 500, 1000, 2000)
