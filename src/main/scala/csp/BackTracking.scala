@@ -1,14 +1,20 @@
-package csp.nQueens
+package csp
+
+object BackTracking {
+  var counter = 0
+}
 
 class BackTracking[T] extends Solver[T] {
 
-  def apply(initialDomains: List[Domain[T]], isCompatible: Solution[T] => Boolean): Option[Solution[T]] = {
+  def apply(problem: Problem[T]): Option[Solution[T]] = {
+    val initialDomains = problem.initialDomains
     val domains: Array[Domain[T]] = initialDomains.toArray
     var solution: Solution[T] = Nil
 
     var varIndex = 0
     while (varIndex < initialDomains.length) {
-      domains(varIndex) = domains(varIndex).filter(value => isCompatible(value :: solution))
+      BackTracking.counter += 1
+      domains(varIndex) = domains(varIndex).filter(value => problem.isCompatible(value :: solution))
 
       if (domains(varIndex).isEmpty) {
         if (varIndex == 0) return None

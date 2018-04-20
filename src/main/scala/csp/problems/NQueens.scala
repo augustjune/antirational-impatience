@@ -1,4 +1,6 @@
-package csp.nQueens
+package csp.problems
+
+import csp.{Domain, Problem, Solution}
 
 class NQueens(queens: Int) extends Problem[Int] {
   def standardDomain: Domain[Int] = (0 until queens).toStream
@@ -15,4 +17,7 @@ class NQueens(queens: Int) extends Problem[Int] {
       t.zipWithIndex.forall(t => h != t._1 && math.abs(h - t._1) - 1 != t._2) &&
         isCompatible(t)
   }
+
+  def removeConflicts(domains: List[Domain[Int]], el: Int): List[Domain[Int]] =
+    domains.zipWithIndex.map{case (d, i) => d.filterNot(x => x == el || math.abs(x - el) == i)}
 }

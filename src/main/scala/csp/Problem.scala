@@ -1,4 +1,4 @@
-package csp.nQueens
+package csp
 
 trait Problem[T] {
 
@@ -9,4 +9,6 @@ trait Problem[T] {
   def isCompatible(solution: Solution[T]): Boolean
 
   def isSolution(solution: Solution[T]): Boolean
+
+  def removeConflicts(domains: List[Domain[T]], el: T): List[Domain[T]]
 }

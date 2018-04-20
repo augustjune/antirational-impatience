@@ -8,3 +8,5 @@ libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.5"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 
 libraryDependencies += "com.norbitltd" %% "spoiwo" % "1.2.0"
+
+libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12"

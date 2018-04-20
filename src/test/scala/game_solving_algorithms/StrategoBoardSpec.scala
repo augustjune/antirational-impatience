@@ -85,5 +85,11 @@ class StrategoBoardSpec extends FreeSpec {
         assert(6 + 8 + 8 === board.fill(3, 5))
       }
     }
+
+    "must be ended when every tile is filled" in {
+      val board = StrategoBoard(1)
+      board.fill(0, 0)
+      assert(board.isEnded)
+    }
   }
 }

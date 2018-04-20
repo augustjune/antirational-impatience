@@ -1,19 +1,17 @@
-package csp.nQueens
+package csp
+
+import csp.problems.NQueens
 
 import scala.concurrent.duration.{Duration, NANOSECONDS}
 import scala.util.Random
 
 object Util {
   def main(args: Array[String]): Unit = {
-    val problem = new NQueens(4)
-    val solver = new ForwardChecking[Int]
+    val problem = new NQueens(5)
+    val solver = new BackTracking[Int]
 
-    printQueens(solver(problem.initialDomains))
-//    val (newTime, _) = measure()
-//    printTime(newTime)
-
-
-    //    randomQueens(15).filter(NQueensSolution.isSolution).take(5).foreach(printQueens)
+    printSolution(solver(problem))
+    println(BackTracking.counter)
   }
 
   def printSolution(solution: Option[Solution[Int]]): Unit = solution match {
