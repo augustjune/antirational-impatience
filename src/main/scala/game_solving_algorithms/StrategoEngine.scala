@@ -1,38 +1,14 @@
 package game_solving_algorithms
 
-import game_solving_algorithms.StrategoBoard._
+import game_solving_algorithms.StrategoBoard.Position
 
-object StrategoBoard {
-  private val GRID_SEPARATION: String = " "
-  private val EMPTY_GRID = "_"
-  private val FILLED_GRID = "X"
+trait StrategoEngine {
+  def tiles: Array[Array[Boolean]]
 
-  type Position = (Int, Int)
-
-  def apply(size: Int): StrategoBoard =
-    new StrategoBoard(new Array[Any](size).map(_ => new Array[Boolean](size)))
-
-  def apply(input: String): StrategoBoard =
-    new StrategoBoard(input.split("\n").map(_.split(GRID_SEPARATION).map(_ != EMPTY_GRID)))
-}
-
-class StrategoBoard protected(tiles: Array[Array[Boolean]]) {
-  assert(tiles.forall(_.length == tiles.length))
-
-  val size: Int = tiles.length
-
-  def isFilled(position: Position): Boolean = tiles(position._1)(position._2)
-
-  def isEmpty(position: Position): Boolean = !isFilled(position)
-
-  def fill(position: Position): Int = {
-    val reward = calculateReward(position)
-    tiles(position._1)(position._2) = true
-    reward
-  }
+  def size: Int = tiles.length
 
   def calculateReward(pos: Position): Int =
-    if (isFilled(pos)) 0
+    if (tiles(pos._1)(pos._2)) 0
     else calculatePoints(pos._1, pos._2)
 
 
@@ -62,7 +38,7 @@ class StrategoBoard protected(tiles: Array[Array[Boolean]]) {
       gridsToFillUpDiagonal == 1
     }
 
-    pointsIf(diagonalLength > 1 && completesUpDiagonal, diagonalLength)
+    pointsIf(diagonalLength != 1 && completesUpDiagonal, diagonalLength)
   }
 
   private def pointsForDownDiag(row: Int, col: Int): Int = {
@@ -76,7 +52,7 @@ class StrategoBoard protected(tiles: Array[Array[Boolean]]) {
 
       gridsToFillDownDiagonal == 1
     }
-    pointsIf(diagonalLength > 1 && completesDownDiagonal, diagonalLength)
+    pointsIf(diagonalLength != 1 && completesDownDiagonal, diagonalLength)
   }
 
   private def pointsForStraight(pred: Boolean): Int = pointsIf(pred, size)
@@ -85,13 +61,5 @@ class StrategoBoard protected(tiles: Array[Array[Boolean]]) {
     if (pred) reward
     else 0
 
-  def freeMoves: IndexedSeq[(Int, Int)] = for {
-    row <- 0 until size
-    col <- 0 until size
-    if isEmpty(row, col)
-  } yield (row, col)
 
-  def isEnded: Boolean = tiles.forall(row => !row.contains(false))
-
-  override def toString: String = tiles.map(_.map(if (_) FILLED_GRID else EMPTY_GRID).mkString(GRID_SEPARATION)).mkString("\n")
 }

@@ -6,8 +6,8 @@ import scala.util.Random
 
 class RandomPlayer(name: String, game: StrategoBoard) extends StrategoPlayer(name, game) {
 
-  def performStep(): Unit = {
+  def move(): (Int, Int) = {
     val possibleMoves = game.freeMoves
-    addPoints(game.fill(possibleMoves(Random.nextInt(possibleMoves.size))))
+    possibleMoves(Random.nextInt(possibleMoves.size))
   }
 }

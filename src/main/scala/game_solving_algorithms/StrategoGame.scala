@@ -5,7 +5,7 @@ class StrategoGame(board: StrategoBoard, player1: StrategoPlayer, player2: Strat
 
   def play(): Unit =
     while (!board.isEnded) {
-      player1.performStep()
-      player2.performStep()
+      player1.move()
+      player2.move()
     }
 }
